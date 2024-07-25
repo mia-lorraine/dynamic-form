@@ -24,7 +24,7 @@
     "question_id": "Q4",
     "question_details": "Do you have any children? (Yes, No)",
     "question_dependencies": { "yes": "Q7", "no": "" },
-    "answer": "Yes",
+    "answer": "yes",
     "type": "yes_no"
   },
   {
