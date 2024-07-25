@@ -42,11 +42,6 @@ export default defineComponent({
 
       //TO-DO: Add Validation
 
-      // let formData = new FormData()
-      // console.log('what is the form input...', formInput)
-      // formData.append('email', formInput.email)
-      // formData.append('password', formInput.password)
-
      // mock backend verification
       this.verifyUser(formInput)
       if(this.status) {
@@ -64,7 +59,6 @@ export default defineComponent({
         return (user.email === data.email && user.password === data.password)
       })
       console.log('what is the status', this.status)
-      // if(data.email === )
     }
   }
 })

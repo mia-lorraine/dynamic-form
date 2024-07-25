@@ -1,5 +1,11 @@
-<script setup>
-import LoginInput from '../components/LoginInput.vue'
+<script>
+import LoginInput from '@/components/LoginInputComponent.vue'
+
+export default {
+  components: {
+    LoginInput
+  }
+}
 </script>
 
 <template>
