@@ -1,29 +1,33 @@
-# dynamic-form
+# Dynamic form with conditional rendering
+## Requirements:
+- Login Page with User Authentication
+- Dynamic Form rendering and displaying data based off of user Input
+- A display of all questions answered after the user submits the form
+- Pagination
+- Form Validation
 
-Creating a dynamic form using Vue.js (Vue3, Options API)
+## Notes
+- Written with Vue 3 Options API with a Mock B.E (mock authentication)
+- There are a lot of things I would love to rework if I had more time, and would love to chat more about it!
+- Deployment to Github pages as my cloud provider using Jekyll
 
-# to set-up
 
-please fork on clone the repository to your local machine
+# Set-up Instructions
+- please fork on clone the repository to your local machine
 SSH, or HTTP is fine.
-
-once you have done that,
-cd into the project directory
-run
-
+- once you have done that, assuming you're in the terminal, `cd` into the project directory and run the following
 ```sh
 npm install
 ```
 
-and then to run locally,
+to create a local build, run
 
 ```sh
 npm run dev
 ```
 
-## to access form
-
-### please login using any of the following credentials:
+## User Authentication
+### Please login using any of the following credentials:
 
 ```sh
     email: 'mia@gmail.com',
@@ -36,17 +40,3 @@ npm run dev
     password: 'test123'
 
 ```
-
-## Requirements:
-
-- Login Page with User Authentication
-- Dynamic Form rendering and displaying data based off of user Input
-- A display of all questions answered after the user submits the form
-- Pagination
-- Form Validation
-
-## Notes
-
-- Written with Vue 3 Options API with a Mock B.E (mock authentication)
-- There are a lot of things I would love to rework if I had more time, and would love to chat more about it
-- Deployment to github pages as my cloud provider using Jekyll
