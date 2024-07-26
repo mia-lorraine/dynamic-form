@@ -63,7 +63,6 @@ export default {
       this.validateData(formData)
     },
     validateData(data) {
-      console.log('validating data', data)
       this.errors = []
 
       for (const [key, value] of Object.entries(data)) {
@@ -79,7 +78,7 @@ export default {
         // console.log(this.submittedData)
       }
       this.displayModal = false
-      console.log('errors are ', this.errors)
+      // console.('errors are ', this.errors)
       // console.log(Object.keys(data))
 
       setTimeout(() => {
