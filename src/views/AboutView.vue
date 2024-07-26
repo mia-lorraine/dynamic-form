@@ -76,7 +76,7 @@ export default {
       if (this.errors.length === 0) {
         this.displayModal = true
         this.submittedData = data
-        console.log(this.submittedData)
+        // console.log(this.submittedData)
       }
       this.displayModal = false
       console.log('errors are ', this.errors)

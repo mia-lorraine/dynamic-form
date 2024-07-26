@@ -1,8 +1,7 @@
-<script >
-
-import { defineComponent } from 'vue';
+<script>
+import { defineComponent } from 'vue'
 import users from '../helpers/authenticatedUsers'
-import router from '@/index';
+import router from '@/index'
 
 export default defineComponent({
   data() {
@@ -18,23 +17,20 @@ export default defineComponent({
   },
   methods: {
     validateForm(form) {
-  
       const regTest = new RegExp(`/^[^\s@]+@[^\s@]+\.[^\s@]+$/`)
-      console.log('test...', regTest.test(form.email))
-      if(form.email === '') {
-        this.errors.email = "Email is required"
+      // console.log('test...', regTest.test(form.email))
+      if (form.email === '') {
+        this.errors.email = 'Email is required'
       }
 
-      if(!regTest.test(form.email)) {
-        this.errors.email = "Invalid email please try again"
+      if (!regTest.test(form.email)) {
+        this.errors.email = 'Invalid email please try again'
       }
 
-      if(form.password === '') {
-        this.errors.password = "Password is required"
+      if (form.password === '') {
+        this.errors.password = 'Password is required'
       }
-      console.log(
-        'errors are...', this.errors
-      )
+      console.log('errors are...', this.errors)
       // this.errors = {}
     },
     login(formInput) {
@@ -42,23 +38,25 @@ export default defineComponent({
 
       //TO-DO: Add Validation
 
-     // mock backend verification
+      // mock backend verification
       this.verifyUser(formInput)
-      if(this.status) {
-        sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c') 
+      if (this.status) {
+        sessionStorage.setItem(
+          'token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+        )
         this.token = sessionStorage.getItem('token')
         router.push('/form')
       } else {
         alert('invalid credentials, please try again')
       }
-    // })
-
-    }, 
+      // })
+    },
     verifyUser(data) {
       this.status = users.some((user) => {
-        return (user.email === data.email && user.password === data.password)
+        return user.email === data.email && user.password === data.password
       })
-      console.log('what is the status', this.status)
+      // console.log('what is the status', this.status)
     }
   }
 })
@@ -69,11 +67,11 @@ export default defineComponent({
     <label>Enter Email </label>
     <input class="form-control" v-model="form.email" type="email" />
     <span class="error" v-if="errors.email">{{ errors.email }}</span>
-    <br>
+    <br />
     <label>Enter Password </label>
     <input class="form-control" v-model="form.password" type="password" />
     <span class="error" v-if="errors.password">{{ errors.password }}</span>
-    <br>
+    <br />
     <button class="btn btn-info" type="submit">Login</button>
   </form>
 </template>
