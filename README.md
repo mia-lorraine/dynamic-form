@@ -1,39 +1,38 @@
 # dynamic-form
-Creating a dynamic form using Vue.js (Vue3, Options API) 
 
+Creating a dynamic form using Vue.js (Vue3, Options API)
 
-# dynamic-form
+# to set-up
 
-This template should help get you started developing with Vue 3 in Vite.
+please fork on clone the repository to your local machine
+SSH, or HTTP is fine.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+once you have done that,
+cd into the project directory
+run
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+and then to run locally,
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## to access form
+
+### please login using any of the following credentials:
 
 ```sh
-npm run build
-```
+    email: 'mia@gmail.com',
+    password: 'Password123'
 
-### Lint with [ESLint](https://eslint.org/)
+    email: 'notmia@gmail.com',
+    password: 'test123'
 
-```sh
-npm run lint
+    email: 'test@gmail.com',
+    password: 'test123'
+
 ```

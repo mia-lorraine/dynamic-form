@@ -46,7 +46,11 @@
     "question_details": "How many children do you have?",
     "question_dependencies": null,
     "answer": "2",
-    "type": "text"
+    "type": "text",
+    "dependsOn": {
+      "question_id": "Q4",
+      "answer": "yes"
+    }
   },
   {
     "question_id": "Q8",
@@ -60,21 +64,55 @@
     "question_details": "Is your primary residence also your preferred mailing address? (Yes, No)",
     "question_dependencies": { "yes": "Q10", "no": "Q10" },
     "answer": "Yes",
-    "type": "yes_no"
+    "type": "yes_no",
+    "dependsOn": {
+      "question_id": "Q8",
+      "answer": "yes"
+    }
   },
   {
-    "question_id": "Q10",
+    "question_id": "Q10a",
     "question_details": "What is the approximate value of your real estate?",
     "question_dependencies": null,
     "answer": "$500,000",
-    "type": "text"
+    "type": "text",
+    "dependsOn": {
+      "question_id": "Q8",
+      "answer": ["yes", "no"]
+    }
+  },
+  {
+    "question_id": "Q10b",
+    "question_details": "What is the approximate value of your real estate?",
+    "question_dependencies": null,
+    "answer": "$500,000",
+    "type": "text",
+    "dependsOn": {
+      "question_id": "Q8",
+      "answer": ["yes", "no"]
+    }
+  },
+  {
+    "question_id": "Q10c",
+    "question_details": "What is the approximate value of your real estate?",
+    "question_dependencies": null,
+    "answer": "$500,000",
+    "type": "text",
+    "dependsOn": {
+      "question_id": "Q8",
+      "answer": ["yes", "no"]
+    }
   },
   {
     "question_id": "Q11",
     "question_details": "Do you own any other type of real estate (e.g., vacation, rental, etc.)? (Yes, No)",
     "question_dependencies": { "yes": "Q10", "no": "Q12" },
     "answer": "No",
-    "type": "yes_no"
+    "type": "yes_no",
+    "dependsOn": {
+      "question_id": "Q8",
+      "answer": "no"
+    }
   },
   {
     "question_id": "Q12",
