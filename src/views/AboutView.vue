@@ -7,9 +7,8 @@ export default {
     InputComponent
   },
   mounted() {
-    jsonData.forEach((question, index) => {
-      // console.log('index', index)
-
+    this.mountedCompleted = true
+    jsonData.forEach((question) => {
       this.structuredData[question.question_id] = question
     })
 
@@ -20,6 +19,7 @@ export default {
   },
   data() {
     return {
+      mountedCompleted: false,
       errors: [],
       pageNumber: 0,
       size: 4,
@@ -78,6 +78,7 @@ export default {
         this.submittedData = data
         console.log(this.submittedData)
       }
+      this.displayModal = false
       console.log('errors are ', this.errors)
       // console.log(Object.keys(data))
 
@@ -277,53 +278,57 @@ export default {
   </form>
 
   <!-- TO-DO: Make a modal component -->
-  <span v-show="displayModal">
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Responses</h1>
 
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Responses</h1>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p v-if="errors.length" style="color: red">
+            Please fix the following errors: <br />{{ errors }}
+          </p>
+          <div v-bind:key="index" v-for="(value, name, index) in submittedData">
+            <p style="font-weight: 600" v-if="value !== ''">
+              {{ name }}. {{ structuredData[name]?.question_details }}
+            </p>
+            <p v-if="value !== ''">{{ value }}</p>
           </div>
-          <div class="modal-body">
-            <div v-bind:key="index" v-for="(value, name, index) in submittedData">
-              <p v-if="value !== ''">
-                {{ structuredData[name]?.question_details }}
-              </p>
-              <p v-if="value !== ''">{{ name }} response: {{ value }}</p>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="
-                () => {
-                  this.isFormSubmitted = true
-                }
-              "
-              data-bs-dismiss="modal"
-            >
-              Save changes
-            </button>
-          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="
+              () => {
+                this.isFormSubmitted = true
+              }
+            "
+            data-bs-dismiss="modal"
+          >
+            Save changes
+          </button>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </template>
 
 <style>
