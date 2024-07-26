@@ -12,17 +12,7 @@ export default {
       pageNumber: 0,
       size: 4,
       formItems: jsonData,
-      form_answers: {
-        Q: []
-      },
-      conditions: [
-        { question: 'Q4', value: 'Yes', render: 'Q7' },
-        { question: 'Q8', value: 'Yes', render: 'Q9' },
-        { question: 'Q8', value: 'No', render: 'Q11' },
-        { question: 'Q9', value: 'Yes', render: 'Q10' },
-        { question: 'Q11', value: 'Yes', render: 'Q10' },
-        { question: 'Q11', value: 'no', render: 'Q12' }
-      ]
+      answers: []
     }
   },
   methods: {
@@ -40,10 +30,7 @@ export default {
       console.log(dependencies.yes, i, answer, dependencies.no)
     },
     validateData(data) {
-      console.log('validating data', data.Q.length)
-      for (let i = 0; i <= data.length - 1; i++) {
-        if (data[i] === '') this.errors.push('Please fill out field')
-      }
+      console.log('meh data', data)
     }
   },
   computed: {
@@ -55,19 +42,16 @@ export default {
     paginatedData() {
       const start = this.pageNumber * this.size,
         end = start + this.size
+      console.log('sliced!!!', this.formItems.slice(start, end))
       return this.formItems.slice(start, end)
     },
     dependencies() {
-      for (let i = 0; i <= this.formItems.length - 1; i++) {
-        console.log('computing...', this.formItems[i])
-        if (!this.formItems[i].question_dependencies) return false
-        else if (this.formItems[i].question_dependencies) {
-          console.log('computiong...', this.formItems[i])
-          return true
-        } else {
-          return false
+      this.paginatedData.forEach((question) => {
+        console.log('question has dependency', question.question_id, question.question_dependencies)
+        if (question.question_dependencies) {
+          question.question_dependencies
         }
-      }
+      })
       return true
     }
   }
@@ -75,35 +59,19 @@ export default {
 </script>
 
 <template>
-  <!-- //can make component -->
-
   <form @submit.prevent="submitForm(form_answers)">
     <div class="form-group" v-for="(question, index) in paginatedData" v-bind:key="index">
       <label>{{ question.question_id }} {{ question.question_details }} </label>
       <input
-        v-if="!question.question_dependencies"
-        v-model="form_answers.Q[index]"
+        v-if="dependencies"
+        v-model="this.answers[question.question_id]"
         class="form-control"
         :type="question.type"
       />
-      <input
+      <!-- <input
         v-if="question.question_dependencies"
         @change="checkForDependencies(question.question_dependencies, form_answers.Q[index], index)"
-        v-model="form_answers.Q[index]"
-        class="form-control"
-        :type="question.type"
-      />
-      <!-- <input
-        v-if="dependencies"
-        @change="checkForDependencies(question.question_dependencies, form_answers.Q[index], index)"
-        v-model="form_answers.Q[index]"
-        class="form-control"
-        :type="question.type"
-      /> -->
-      <!-- <input
-        v-if="question.question_id === 'Q7' && this.form_answers.Q[3] === 'Yes'"
-        @change="checkForDependencies(question.question_dependencies, form_answers.Q[index], index)"
-        v-model="form_answers.Q[index]"
+        v-model="this.answers[question.question_id]"
         class="form-control"
         :type="question.type"
       /> -->
