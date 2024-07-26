@@ -1,11 +1,8 @@
 <script>
-import InputComponent from '@/components/InputComponent.vue'
+// import InputComponent from '@/components/InputComponent.vue'
 import jsonData from '../form/form.json'
 
 export default {
-  components: {
-    InputComponent
-  },
   mounted() {
     console.log(jsonData.filter((q) => !q?.question_dependencies))
     console.log(jsonData.filter((q) => q?.question_dependencies))
@@ -89,110 +86,112 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div v-if="errors.length" class="alert alert-danger">
-      Please correct the following errors:
-      <li>
-        {{ errors }}
-      </li>
-    </div>
-    <form @submit.prevent="submitForm(form)">
-      <div class="form-group" v-for="(question, index) in paginatedData" v-bind:key="index">
-        <InputComponent
-          v-model="form[question.question_id]"
-          :question="question.question_details"
-          :inputType="question.type"
-          :condition="true"
-        />
-
-        <!-- <label>{{ question.question_id }} {{ question.question_details }} </label>
-      <input v-model="form_answers.Q[index]" class="form-control" :type="question.type" />
-      <input
-        v-if="question.question_dependencies"
-        @change="checkForDependencies(question.question_dependencies, form_answers.Q[index], index)"
-        v-model="form_answers.Q[index]"
-        class="form-control"
-        :type="question.type"
-      /> -->
-        <br />
+  <form>
+    <div class="container">
+      <div v-if="this.pageNumber === 0">
+        <h1>Page 1: Personal Information</h1>
+        <div class="form-group">
+          <label>Q1. What is your full legal name?</label>
+          <input v-model="form.Q1" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q2. What is your birth year?</label>
+          <input v-model="form.Q2" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label
+            >Q3. What is your marital status? (Single, Married, Divorced, Widowed, Domestic
+            Partner)</label
+          >
+          <input v-model="form.Q3" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q4.Do you have any children? (Yes, No) </label>
+          <input v-model="form.Q4" class="form-control" />
+        </div>
       </div>
 
-      <!-- <div class="form-group">
-      <label>Q1. What is your full legal name?</label>
-      <input v-model="form.q1" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q2. What is your birth year?</label>
-      <input v-model="form.q2" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label
-        >Q3. What is your marital status? (Single, Married, Divorced, Widowed, Domestic
-        Partner)</label
-      >
-      <input v-model="form.q3" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q4.Do you have any children? (Yes, No) </label>
-      <input v-model="form.q4" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q5. What is your partner's full legal name?</label>
-      <input v-model="form.q5" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q6. What is your partner's birth year?</label>
-      <input v-model="form.q6" class="form-control" />
-    </div>
-    <div v-if="form.q4 === 'yes'" class="form-group">
-      <label>Q7. How many children do you have?</label>
-      <input v-model="form.q7" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label
-        >Q8. Do you or your partner (if not single) own your primary residence? (Yes, No)</label
-      >
-      <input v-model="form.q8" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q9. Is your primary residence also your preferred mailing address? (Yes, No)?</label>
-      <input v-model="form.q9" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q10. What is the approximate value of your real estate?</label>
-      <input v-model="form.q10" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label
-        >Q11. Do you own any other type of real estate (e.g., vacation, rental, etc.)? (Yes,
-        No)</label
-      >
-      <input v-model="form.q11" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q12.Do you want to buy real estate in the future? (Yes, No)</label>
-      <input v-model="form.q12" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label>Q13. Do you have any financial goals already created? (Yes, No)</label>
-      <input v-model="form.q13" class="form-control" />
-    </div> -->
+      <div v-if="this.pageNumber === 1">
+        <div class="form-group">
+          <label>Q5. What is your partner's full legal name?</label>
+          <input v-model="form.Q5" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q6. What is your partner's birth year?</label>
+          <input v-model="form.Q6" class="form-control" />
+        </div>
+      </div>
+
+      <div v-if="form.Q4 === 'yes' && this.pageNumber === 2">
+        <div v-if="form.Q4 === 'yes'" class="form-group">
+          <label>Q7. How many children do you have?</label>
+          <input v-model="form.Q7" class="form-control" />
+        </div>
+      </div>
+
+      <div v-if="this.pageNumber === 3">
+        <h1>Page:4 Primary Residence Information</h1>
+        <div class="form-group">
+          <label
+            >Q8. Do you or your partner (if not single) own your primary residence? (Yes, No)</label
+          >
+          <input v-model="form.Q8" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label
+            >Q9. Is your primary residence also your preferred mailing address? (Yes, No)?</label
+          >
+          <input v-model="form.Q9" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q10. What is the approximate value of your real estate?</label>
+          <input v-model="form.Q10" class="form-control" />
+        </div>
+      </div>
+
+      <div v-if="this.pageNumber === 4">
+        <div class="form-group">
+          <label
+            >Q11. Do you own any other type of real estate (e.g., vacation, rental, etc.)? (Yes,
+            No)</label
+          >
+          <input v-model="form.Q11" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q10. What is the approximate value of your real estate?</label>
+          <input v-model="form.Q10" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q12.Do you want to buy real estate in the future? (Yes, No)</label>
+          <input v-model="form.Q12" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Q13. Do you have any financial goals already created? (Yes, No)</label>
+          <input v-model="form.Q13" class="form-control" />
+        </div>
+      </div>
+
+      <br />
 
       <div style="text-align: right">
         <button class="btn btn-success" v-if="this.pageNumber == 3">Submit</button>
       </div>
-    </form>
-    <div class="button-container">
-      <div style="flex: 1">
-        <button class="btn btn-danger" v-if="this.pageNumber > 0" @click="prevPage">
-          Previous
-        </button>
-      </div>
-      <div style="justify-content: flex-end">
-        <button class="btn btn-info" v-if="this.pageNumber < 3" @click="nextPage">Next</button>
+
+      <div class="button-container">
+        <div style="flex: 1">
+          <button class="btn btn-danger" v-if="this.pageNumber > 0" @click.prevent="prevPage">
+            Previous
+          </button>
+        </div>
+        <div style="justify-content: flex-end">
+          <button class="btn btn-info" v-if="this.pageNumber < 3" @click.prevent="nextPage">
+            Next
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+    <!-- </div> -->
+  </form>
 </template>
 
 <style>
