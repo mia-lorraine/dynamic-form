@@ -1,7 +1,7 @@
 <script>
 import { defineComponent } from 'vue'
 import users from '../helpers/authenticatedUsers'
-import router from '@/index'
+import router from './index'
 
 export default defineComponent({
   data() {
