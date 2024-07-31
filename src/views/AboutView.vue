@@ -1,5 +1,5 @@
 <script>
-import InputComponent from './components/InputComponent.vue'
+import InputComponent from '@/components/InputComponent.vue'
 import jsonData from '../form/form.json'
 
 export default {
